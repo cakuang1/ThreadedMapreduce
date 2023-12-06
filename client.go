@@ -21,11 +21,9 @@ func main() {
 	for {
 		scanner.Scan()
 		message := scanner.Text()
-
 		if message == "/exit" {
 			break
 		}
-
 		fmt.Fprintln(conn, message)
 	}
 }

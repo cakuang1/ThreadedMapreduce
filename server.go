@@ -31,11 +31,9 @@ func main() {
 			fmt.Println("Error accepting connection:", err)
 			continue
 		}
-
 		go handleConnection(conn)
 	}
 }
-
 func handleConnection(conn net.Conn) {
 	defer conn.Close()
 
