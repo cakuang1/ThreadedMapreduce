@@ -7,17 +7,18 @@ import (
 )
 
 
+
+
+
+
 func main() {
 	http.HandleFunc("/", handleRequest)
 	http.ListenAndServe(":80", nil)
 }
 
 
-
-
 func handleRequest(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("Received request from %s\n", r.RemoteAddr)
-
 	// Forward the request to a backend server
 	resp, err := http.Get("http://localhost:8080")
 	if err != nil {
