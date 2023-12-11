@@ -11,7 +11,6 @@ type ServiceRegistry struct {
 	servers map[Server]struct{}
 }
 
-
 type Server struct {
 	ip string
 	port string
@@ -33,7 +32,6 @@ func (registry *ServiceRegistry) DeRegisterServer(server Server) {
 	defer registry.mu.Unlock()
 	delete(registry.servers, server)
 } 
-
 
 
 

@@ -6,11 +6,6 @@ import (
 	"net/http"
 )
 
-
-
-
-
-
 func main() {
 	http.HandleFunc("/", handleRequest)
 	http.ListenAndServe(":80", nil)
