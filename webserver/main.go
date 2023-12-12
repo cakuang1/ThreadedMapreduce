@@ -18,9 +18,13 @@ func handleConnection(conn net.Conn) {
 	}
 	request := string(buffer[:n])
 	path := extractPath(request)
-	response := fmt.Sprintf("HTTP/1.1 200 OK\r\n\r\nRequested path: %s\r\n", path)
+	fakeResponse := `{"status": "success", "data": {"message": "Hello, world!"}}`
+	response := fmt.Sprintf("HTTP/1.1 200 OK\r\nContent-Type: application/json\r\nContent-Length: %d\r\n\r\n%s", len(fakeResponse), fakeResponse)
 	conn.Write([]byte(response))
+
 }
+
+
 func extractPath(request string) string {
 	lines := strings.Split(request, "\n")
 	if len(lines) > 0 {
