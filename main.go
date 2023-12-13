@@ -7,7 +7,6 @@ import (
 )
 
 
-
 type GreetingResponse struct {
     Greeting string `json:"greeting"`
 }
@@ -95,6 +94,8 @@ func extractPath(request string) string {
     }
     return "/"
 }
+
+
 
 func GreetingHandler() interface{} {
     return GreetingResponse{Greeting: "Hello, world!"}
