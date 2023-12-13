@@ -12,6 +12,9 @@ func main() {
 }
 
 
+
+
+
 func handleRequest(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("Received request from %s\n", r.RemoteAddr)
 	// Forward the request to a backend server
@@ -24,6 +27,8 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 	// Copy the backend server's response to the client
 	io.Copy(w, resp.Body)
 }
+
+
 
 
 
