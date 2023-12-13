@@ -1,5 +1,4 @@
-package webserverdummy
-
+package DummyJSONWebserver
 
 import (
     "fmt"

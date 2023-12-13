@@ -1,3 +1,3 @@
-module dummywebserver
+module DummyJSONWebserver
 
 go 1.21.4

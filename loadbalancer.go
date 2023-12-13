@@ -1,19 +1,11 @@
-package loadbalancer
+package DummyJSONWebserver
 
 import (
 	"fmt"
 	"io"
 	"net/http"
-)
-
-func main() {
-	http.HandleFunc("/", handleRequest)
-	http.ListenAndServe(":80", nil)
-}
-
-
-
-
+	"sync"
+)	
 
 func handleRequest(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("Received request from %s\n", r.RemoteAddr)
@@ -28,9 +20,31 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 	io.Copy(w, resp.Body)
 }
 
+type LoadBalancer struct {
+	servers []string
+	current int
+	mutex  sync.Mutex
+}
+
+func NewLoadBalancer(listofservers []string) *LoadBalancer{
+	return &LoadBalancer{
+		servers: listofservers,
+		current: 0,
+	}
+}
+
+func (lb *LoadBalancer) 
 
 
 
 
 
 
+
+
+
+func main() {
+
+	http.HandleFunc("/", handleRequest)
+	http.ListenAndServe(":80", nil)
+}
