@@ -11,8 +11,9 @@ import (
 // SingleThreadedMR represents a single-threaded MapReduce instance
 type SingleThreadedMR struct {
 	Tasks []string
-	// You may have additional fields here
 }
+
+
 
 // ReadFileLineByLine reads a file line by line
 func ReadFileLineByLine(fileName string) ([]string, error) {
@@ -49,7 +50,6 @@ func mapFunction(lines []string) map[string]int {
 
 	return output
 }
-
 
 // reduceFunction performs the reduce operation on a list of key-value pairs
 func reduceFunction(input map[string]int) map[string]int {
@@ -93,3 +93,6 @@ func main() {
 	result := mr.Process()
 	fmt.Println("Aggregate Result:", result)
 }
+
+
+

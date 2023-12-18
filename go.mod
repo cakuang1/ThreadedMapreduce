@@ -1,3 +1,5 @@
-module MapReduce
+module ThreadedMapReduce
+
+
 
 go 1.21.4
