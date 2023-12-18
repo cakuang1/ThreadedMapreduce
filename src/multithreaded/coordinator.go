@@ -34,10 +34,9 @@ func NewMultiThreadedMR(tasks []string) *MultiThreadedMR {
 
 
 
-
-
 //Start Processing
 func (mr *MultiThreadedMR) Process() {
+
 
 
 }
