@@ -1,6 +1,7 @@
-package main
+package MapReduce
 
 // Single threaded map reduce
+
 
 
 import (
@@ -12,6 +13,9 @@ type KeyValue struct {
 	Key   string
 	Value int
 }
+
+
+
 
 
 func mapFunction(input string) []KeyValue {
