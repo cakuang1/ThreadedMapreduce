@@ -1,63 +1,95 @@
-package MapReduce
-
-// Single threaded map reduce
-
-
+package main
 
 import (
+	"bufio"
 	"fmt"
+	"os"
 	"strings"
+	"log"
 )
 
-type KeyValue struct {
-	Key   string
-	Value int
+// SingleThreadedMR represents a single-threaded MapReduce instance
+type SingleThreadedMR struct {
+	Tasks []string
+	// You may have additional fields here
 }
 
+// ReadFileLineByLine reads a file line by line
+func ReadFileLineByLine(fileName string) ([]string, error) {
+	file, err := os.Open(fileName)
+	if err != nil {
+		return nil, err
+	}
+	defer file.Close()
 
+	var lines []string
+	scanner := bufio.NewScanner(file)
 
+	for scanner.Scan() {
+		lines = append(lines, scanner.Text())
+	}
 
+	if err := scanner.Err(); err != nil {
+		return nil, err
+	}
 
-func mapFunction(input string) []KeyValue {
-	// Split the input into words
-	words := strings.Fields(input)
+	return lines, nil
+}
 
-	// Emit key-value pairs for each word
-	var output []KeyValue
-	for _, word := range words {
-		output = append(output, KeyValue{Key: word, Value: 1})
+// mapFunction performs the map operation for a list of lines
+func mapFunction(lines []string) map[string]int {
+	// Emit key-value pairs for each word in each line
+	output := make(map[string]int)
+	for _, line := range lines {
+		words := strings.Fields(line)
+		for _, word := range words {
+			output[word]++
+		}
 	}
 
 	return output
 }
 
-func reduceFunction(key string, values []int) KeyValue {
-	count := 0
-	for _, v := range values {
-		count += v
+
+// reduceFunction performs the reduce operation on a list of key-value pairs
+func reduceFunction(input map[string]int) map[string]int {
+	// The reduce function can be a no-op for this example
+	return input
+}
+// processFiles reads all files, performs the map and reduce operations, and aggregates the results
+func (mr *SingleThreadedMR) Process() map[string]int {
+	// Aggregate results from all files
+	aggregateResult := make(map[string]int)
+
+	// Map phase for all files
+	for _, fileName := range mr.Tasks {
+		lines, err := ReadFileLineByLine(fileName)
+		if err != nil {
+			fmt.Println("Error reading file:", err)
+			continue
+		}
+		// Map phase
+		mapOutput := mapFunction(lines)
+
+		// Aggregate map results
+		for key, value := range mapOutput {
+			aggregateResult[key] += value
+		}
+		log.Println("Mapping File : " ,fileName)
 	}
 
-	return KeyValue{Key: key, Value: count}
+	// Reduce phase
+	reduceOutput := reduceFunction(aggregateResult)
+	return reduceOutput
 }
 
+
 func main() {
-	// Input data
-	inputData := "Hello world hello"
-
-	// Map Phase
-	mapOutput := mapFunction(inputData)
-
-	// Shuffle and Sort Phase (omitted for simplicity in single-threaded version)
-
-	// Reduce Phase
-	result := make(map[string][]int)
-	for _, kv := range mapOutput {
-		result[kv.Key] = append(result[kv.Key], kv.Value)
+	// Example usage
+	mr := SingleThreadedMR{
+		Tasks: []string{"file1.txt", "file2.txt", "file3.txt"},
 	}
-
-	// Final Output
-	for key, values := range result {
-		reduceOutput := reduceFunction(key, values)
-		fmt.Printf("%s: %d\n", reduceOutput.Key, reduceOutput.Value)
-	}
+	// Process all files and aggregate the results
+	result := mr.Process()
+	fmt.Println("Aggregate Result:", result)
 }

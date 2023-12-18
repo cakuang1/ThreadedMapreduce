@@ -1,16 +1,28 @@
 package MapReduce
 // MAPPER FUNCTION Also includes a combiner
-func mapFunction(input string) {
-		words := strings.Fields(input)
-		// Emit key-value pairs for each word
-		var output []KeyValue
-		for _, word := range words {
-			output = append(output, KeyValue{Key: word, Value: 1})
-		}
 
-		return output
+import (
+	"fmt"
+	"hash/fnv"
+	"runtime"
+	"strings"
+	"sync"
+)
+
+
+
+
+func mapper(input string, output chan<- map[string]int) {
+	wordCount := make(map[string]int)
+
+	words := strings.Fields(input)
+	for _, word := range words {
+		wordCount[word]++
 	}
 
+	// Send the word count directly to the reducer
+	output <- wordCount
+}
 
 
 
