@@ -1,11 +1,8 @@
 package MultiThreaded
 
 import (
-	"bufio"
 	"fmt"
-	"os"
-	"strings"
-	"log"
+	"sync"
 )
 
 
@@ -19,7 +16,8 @@ type KeyValue struct {
 type MultiThreadedMR struct {
 	Tasks []string
 	NumReducers int
-	ReducerPipes []chan <- KeyValue
+	Pipes []chan  KeyValue
+
 }
 
 
@@ -27,15 +25,22 @@ func NewMultiThreadedMR(tasks []string) *MultiThreadedMR {
 	return &MultiThreadedMR{
 		Tasks:        tasks,
 		NumReducers:   4, // Set your default value for NumReducers here
-		ReducerPipes: make([]chan<- KeyValue, 4), // Set your default value for ReducerPipes here
+		Pipes: make([]chan KeyValue, 4), // Set your default value for ReducerPipes here
 	}
 }
-
-
-
-
 //Start Processing
 func (mr *MultiThreadedMR) Process() {
+	var mapperwg sync.WaitGroup
+	var reducerwg sync.WaitGroup
+	for _,e :=range(mr.Tasks) {
+
+	}
+
+	for i := 0 ;i < mr.NumReducers ; i++ {
+		reducerwg.Add(1)
+		go reduceFunction(mr.ReducerPipes[i])
+	}
+
 
 
 
@@ -49,9 +54,6 @@ func main() {
 	mr := NewMultiThreadedMR{
 		Tasks: []string{"file1.txt", "file2.txt", "file3.txt"},
 	}
-	// In a multithreaded env, the number of mapper threads will be equal to the number of files
-	// Reducers ar
-	// Process all files and aggregate the results
 	result := mr.Process()
 	fmt.Println("Aggregate Result:", result)
 }

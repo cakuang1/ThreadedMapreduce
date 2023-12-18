@@ -1,13 +1,16 @@
 package MultiThreaded
 
 
-func reduceFunction(values []int) KeyValue {
-	count := 0
-	for _, v := range values {
-		count += v
-	}
-	return KeyValue{Key: key, Value: count}
-}
 
+func reduceFunction(input chan KeyValue) map[string]int {
+	wordCounts := make(map[string]int)
+
+	// Process key-value pairs from the input channel
+	for kv := range input {
+		wordCounts[kv.Key] += kv.Value
+	}
+
+	return wordCounts
+}
 
 

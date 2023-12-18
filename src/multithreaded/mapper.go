@@ -3,11 +3,10 @@ package MultiThreaded
 
 
 import (
-	"fmt"
+	"bufio"
 	"hash/fnv"
-	"runtime"
+	"os"
 	"strings"
-	"sync"
 )
 
 
@@ -27,13 +26,11 @@ func (mr *MultiThreadedMR) mapper(input string) {
 	for _, word := range words {
 		wordCount[word]++
 	}
-	// Send the word counts directly to the corresponding reducer channel
 	for word, count := range wordCount {
 		hash := hashString(word) % uint32(mr.NumReducers)
-		mr.ReducerPipes[hash] <- KeyValue{Key: word, Value: count}
+		mr.Pipes[hash] <- KeyValue{Key: word, Value: count}
 	}
 }
-
 
 
 
@@ -43,10 +40,8 @@ func ReadFileLineByLine(fileName string) ([]string, error) {
 		return nil, err
 	}
 	defer file.Close()
-
 	var lines []string
 	scanner := bufio.NewScanner(file)
-
 	for scanner.Scan() {
 		lines = append(lines, scanner.Text())
 	}
