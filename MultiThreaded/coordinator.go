@@ -17,33 +17,37 @@ type MultiThreadedMR struct {
 	Tasks []string
 	NumReducers int
 	Pipes []chan  KeyValue
-
+	MapperWG   sync.WaitGroup
+	ReducerWG  sync.WaitGroup
 }
 
 
 func NewMultiThreadedMR(tasks []string) *MultiThreadedMR {
-	return &MultiThreadedMR{
+	numReducers := 4
+	defaultBufferSize := 10 // Set your desired buffer size
+	mr := &MultiThreadedMR{
 		Tasks:        tasks,
-		NumReducers:   4, // Set your default value for NumReducers here
-		Pipes: make([]chan KeyValue, 4), // Set your default value for ReducerPipes here
+		NumReducers:  numReducers,
+		Pipes:        make([]chan KeyValue, numReducers),
 	}
+
+	for i := 0; i < numReducers; i++ {
+		// Create a buffered channel with the specified buffer size
+		mr.Pipes[i] = make(chan KeyValue, defaultBufferSize)
+	}
+	return mr
 }
+
 //Start Processing
 func (mr *MultiThreadedMR) Process() {
-	var mapperwg sync.WaitGroup
-	var reducerwg sync.WaitGroup
 	for _,e :=range(mr.Tasks) {
-
-	}
-
+		mr.MapperWG.Add(1)
+		go mr.mapper(e)
+	}	
 	for i := 0 ;i < mr.NumReducers ; i++ {
-		reducerwg.Add(1)
-		go reduceFunction(mr.ReducerPipes[i])
+		mr.ReducerWG.Add(1)
+		go reduceFunction(mr.Pipes[i])
 	}
-
-
-
-
 }
 
 

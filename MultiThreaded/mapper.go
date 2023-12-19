@@ -7,6 +7,7 @@ import (
 	"hash/fnv"
 	"os"
 	"strings"
+	"fmt"
 )
 
 
@@ -18,9 +19,9 @@ func hashString(s string) uint32 {
 	return h.Sum32()
 }
 
-
 func (mr *MultiThreadedMR) mapper(input string) {
-	// This is the map and combiner process
+	defer mr.MapperWG.Done()
+	fmt.Println("Mapping ", input)
 	wordCount := make(map[string]int)
 	words := strings.Fields(input)
 	for _, word := range words {
@@ -30,7 +31,9 @@ func (mr *MultiThreadedMR) mapper(input string) {
 		hash := hashString(word) % uint32(mr.NumReducers)
 		mr.Pipes[hash] <- KeyValue{Key: word, Value: count}
 	}
+	
 }
+
 
 
 

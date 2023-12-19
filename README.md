@@ -5,7 +5,7 @@ Simulating MapReduce on a multicore machine using Golang Threads.
 
 ## Single threaded/sequential approach
 
-Contains one main thread that handles mapping and reducing
+Contains one main thread that handles mapping and reducing, and spits out a map of word counts
 
 
 ```
@@ -17,15 +17,12 @@ Contains one main thread that handles mapping and reducing
 ## "Distributed Approach"  Multithreaded 
 
 
-- One Master Thread that handles coordination between threads
--   
+- One Coordination(Main) Thread that handles state management and communication between threads, providing locks 
+- 
 
 
 
 
-
-
-## Fault Model
 
 
 
