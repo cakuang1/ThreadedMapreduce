@@ -2,17 +2,18 @@
 
 
 ## Overview
-This project provides a basic implementation of a multi-threaded MapReduce framework in Golang, using Golang Threads (goroutines).  
+This project provides a basic implementation of a multi-threaded MapReduce framework in a single Golang process using Golang Threads (goroutines). The goal of this project is to simulate a typical clustered algorithm on a single machine, similating each machine using a thread, and networking (mappers to reducers) through Go Channels. 
 
 
 
-## Why I created this project
-I was fairly interested in large data processing, and wanted to learn more about Google's MapReduce. However, MapReduce is typically run on a cluster using HDFS. 
+
+
 
 ## Features
 - **Multi-Threaded Processing:** Utilizes goroutines in Go for concurrent execution of mapping and reducing tasks.
 - **Configurable:** Allows users to specify the number of reducers and customize the buffer size for communication channels.
 - **Flexible Implementation:** Users can define their own mapping and reducing logic based on the specific requirements of their MapReduce application.
+
 
 
 
@@ -50,3 +51,16 @@ func main() {
 	mr.Process()
 	fmt.Println("Processing completed.")
 }
+```
+
+
+## How this works
+Typical multi-threaded processing framework with master-worker pattern threads. Master thread distributes tasks and maintains status and overall process.
+
+
+
+
+
+
+
+
