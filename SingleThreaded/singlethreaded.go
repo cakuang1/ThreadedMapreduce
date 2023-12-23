@@ -51,6 +51,7 @@ func mapFunction(lines []string) map[string]int {
 	return output
 }
 
+
 // reduceFunction performs the reduce operation on a list of key-value pairs
 func reduceFunction(input map[string]int) map[string]int {
 	// The reduce function can be a no-op for this example
@@ -77,11 +78,12 @@ func (mr *SingleThreadedMR) Process() map[string]int {
 		}
 		log.Println("Mapping File : " ,fileName)
 	}
-
 	// Reduce phase
 	reduceOutput := reduceFunction(aggregateResult)
 	return reduceOutput
 }
+
+
 
 
 func main() {
