@@ -1,7 +1,5 @@
 package MultiThreaded
 
-
-
 func reduceFunction(input chan KeyValue) map[string]int {
 	wordCounts := make(map[string]int)
 
@@ -12,5 +10,9 @@ func reduceFunction(input chan KeyValue) map[string]int {
 
 	return wordCounts
 }
+
+
+
+
 
 

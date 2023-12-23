@@ -5,14 +5,15 @@ import (
 	"sync"
 )
 
-
 type KeyValue struct {
 	Key   string
 	Value int
 }
 
 
-// MultiThreadedMR represents a single-threaded MapReduce instance
+
+
+
 type MultiThreadedMR struct {
 	Tasks []string
 	NumReducers int
@@ -22,23 +23,23 @@ type MultiThreadedMR struct {
 }
 
 
+
+
 func NewMultiThreadedMR(tasks []string) *MultiThreadedMR {
 	numReducers := 4
-	defaultBufferSize := 10 // Set your desired buffer size
+	defaultBufferSize := 10 
 	mr := &MultiThreadedMR{
 		Tasks:        tasks,
 		NumReducers:  numReducers,
 		Pipes:        make([]chan KeyValue, numReducers),
 	}
-
 	for i := 0; i < numReducers; i++ {
-		// Create a buffered channel with the specified buffer size
 		mr.Pipes[i] = make(chan KeyValue, defaultBufferSize)
 	}
 	return mr
 }
 
-//Start Processing
+
 func (mr *MultiThreadedMR) Process() {
 	for _,e :=range(mr.Tasks) {
 		mr.MapperWG.Add(1)
@@ -49,7 +50,6 @@ func (mr *MultiThreadedMR) Process() {
 		go reduceFunction(mr.Pipes[i])
 	}
 }
-
 
 
 

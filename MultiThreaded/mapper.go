@@ -12,12 +12,14 @@ import (
 
 
 
-
 func hashString(s string) uint32 {
 	h := fnv.New32a()
 	h.Write([]byte(s))
 	return h.Sum32()
 }
+
+
+
 
 func (mr *MultiThreadedMR) mapper(input string) {
 	defer mr.MapperWG.Done()
