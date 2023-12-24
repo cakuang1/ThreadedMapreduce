@@ -55,10 +55,16 @@ func main() {
 
 
 ## How this works
-Typical multi-threaded processing framework with master-worker pattern threads. Master thread distributes tasks and maintains status and overall process.
+Typical multi-threaded processing framework with master-worker pattern. Threads are s wer 
 
 
 
+
+
+
+
+
+ Master thread distributes tasks and maintains status and overall process.
 
 
 
