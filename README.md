@@ -5,14 +5,12 @@
 This project provides a basic implementation of a multi-threaded MapReduce framework in a single Golang process using Golang Threads (goroutines). The goal of this project is to simulate a typical clustered algorithm on a single machine, similating each machine using a thread, and networking (mappers to reducers) through Go Channels. 
 
 
-
-
-
-
 ## Features
 - **Multi-Threaded Processing:** Utilizes goroutines in Go for concurrent execution of mapping and reducing tasks.
 - **Configurable:** Allows users to specify the number of reducers and customize the buffer size for communication channels.
 - **Flexible Implementation:** Users can define their own mapping and reducing logic based on the specific requirements of their MapReduce application.
+
+
 
 
 
