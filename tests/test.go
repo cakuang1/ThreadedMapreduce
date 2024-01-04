@@ -1,10 +1,8 @@
 package tests
 
 import (
-	"fmt"
 	"testing"
 )
-
 
 // Define your SingleThreadedMR and NewMultiThreadedMR types and their methods here.
 
@@ -14,7 +12,7 @@ type SingleThreadedMR struct {
 }
 
 
-
+	
 func (mr SingleThreadedMR) Process() string {
 	// Implement the single-threaded processing logic
 	return "SingleThreadedResult"

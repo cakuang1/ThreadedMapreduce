@@ -52,19 +52,27 @@ func main() {
 ```
 
 
-## How this works
-Typical multi-threaded processing framework with master-worker pattern. Threads are s wer 
+# How this works
+Typical multi-threaded processing framework with master-worker pattern. 
+
+## Mapping phase
+
+ Master thread distributes tasks and maintains status and overall process. Each input file spawns a worker thread that processes individual
+
+![Alt text](images/1.png)
 
 
 
 
+![Alt text](images/2.png)
 
 
+ ## Reduce Phase
+
+![Alt text](images/3.png)
 
 
- Master thread distributes tasks and maintains status and overall process.
-
-
+![Alt text](images/4.png)
 
 
 
