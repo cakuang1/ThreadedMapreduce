@@ -44,7 +44,6 @@ func (mr *MultiThreadedMR) Process() {
 		mr.ReducerWG.Add(1)
 		go mr.reduceFunction(mr.Pipes[i])
 	}
-
 	// Wait for all mapper and reducer goroutines to finish
 	mr.MapperWG.Wait()
 	for i := 0; i < mr.NumReducers; i++ {
@@ -52,8 +51,6 @@ func (mr *MultiThreadedMR) Process() {
 	}
 	mr.ReducerWG.Wait()
 }
-
-
 
 
 
