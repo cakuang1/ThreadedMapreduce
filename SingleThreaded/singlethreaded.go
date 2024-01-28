@@ -3,9 +3,9 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"log"
 	"os"
 	"strings"
-	"log"
 )
 
 // SingleThreadedMR represents a single-threaded MapReduce instance
@@ -13,7 +13,12 @@ type SingleThreadedMR struct {
 	Tasks []string
 }
 
-
+// NewSingleThreadedMR creates a new SingleThreadedMR instance with the provided list of files
+func NewSingleThreadedMR(files []string) *SingleThreadedMR {
+	return &SingleThreadedMR{
+		Tasks: files,
+	}
+}
 
 // ReadFileLineByLine reads a file line by line
 func ReadFileLineByLine(fileName string) ([]string, error) {
@@ -51,13 +56,13 @@ func mapFunction(lines []string) map[string]int {
 	return output
 }
 
-
 // reduceFunction performs the reduce operation on a list of key-value pairs
 func reduceFunction(input map[string]int) map[string]int {
 	// The reduce function can be a no-op for this example
 	return input
 }
-// processFiles reads all files, performs the map and reduce operations, and aggregates the results
+
+// Process reads all files, performs the map and reduce operations, and aggregates the results
 func (mr *SingleThreadedMR) Process() map[string]int {
 	// Aggregate results from all files
 	aggregateResult := make(map[string]int)
@@ -76,25 +81,19 @@ func (mr *SingleThreadedMR) Process() map[string]int {
 		for key, value := range mapOutput {
 			aggregateResult[key] += value
 		}
-		log.Println("Mapping File : " ,fileName)
+		log.Println("Mapping File : ", fileName)
 	}
 	// Reduce phase
 	reduceOutput := reduceFunction(aggregateResult)
 	return reduceOutput
 }
 
-
-
-
 func main() {
 	// Example usage
-	mr := SingleThreadedMR{
-		Tasks: []string{"file1.txt", "file2.txt", "file3.txt"},
-	}
+	files := []string{"file1.txt", "file2.txt", "file3.txt"}
+	mr := NewSingleThreadedMR(files)
+
 	// Process all files and aggregate the results
 	result := mr.Process()
 	fmt.Println("Aggregate Result:", result)
 }
-
-
-

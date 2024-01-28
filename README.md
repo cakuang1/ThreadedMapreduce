@@ -12,6 +12,28 @@ This project provides a basic implementation of a multi-threaded MapReduce frame
 
 
 ## Usage
+
+### Single Threaded
+1. **Instantiate MultiThreadedMR:**
+    ```go
+    mr := NewMultiThreadedMR([]string{"file1.txt", "file2.txt", "file3.txt"})
+    ```
+
+2. **Process Data:**
+    ```go
+    mr.Process()
+    ```
+
+3. **Implement Custom Logic:**
+   - Fill in the `mapper` and `reduceFunction` methods with application-specific mapping and reducing logic.
+
+4. **Results:**
+   - The final aggregated result can be obtained based on the user-defined logic in the `reduceFunction`.
+
+
+
+
+### Multithreaded
 1. **Instantiate MultiThreadedMR:**
     ```go
     mr := NewMultiThreadedMR([]string{"file1.txt", "file2.txt", "file3.txt"})
@@ -35,7 +57,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/your-username/MultiThreadedMapReduce"
+	"github.com/cakuang1/MultiThreadedMapReduce"
 )
 
 func main() {
