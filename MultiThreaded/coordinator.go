@@ -10,7 +10,6 @@ type KeyValue struct {
 	Value int
 }
 
-
 type MultiThreadedMR struct {
 	Tasks []string
 	NumReducers int
@@ -18,6 +17,7 @@ type MultiThreadedMR struct {
 	MapperWG   sync.WaitGroup
 	ReducerWG  sync.WaitGroup
 }
+
 
 
 func NewMultiThreadedMR(tasks []string) *MultiThreadedMR {
