@@ -1,13 +1,20 @@
-# Use the official Go image as the base image
+# Use an official Golang runtime as a parent image
 FROM golang:latest
 
+# Set the working directory inside the container
+WORKDIR /go/src/app
 
-WORKDIR /app
+# Copy the go.mod and go.sum files to download dependencies
+COPY go.mod .
 
+# Download dependencies
+RUN go mod download
+
+# Copy the entire project to the container
 COPY . .
 
-RUN go build -o MultiThreadedMR
+# Build the Go application
+RUN go build -o app
 
-
-
-CMD ["./MultiThreadedMR"]
+# Run the Go application when the container starts
+CMD ["./app"]

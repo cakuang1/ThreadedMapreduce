@@ -11,12 +11,19 @@ This project provides a basic implementation of a multi-threaded MapReduce frame
 - **Flexible Implementation:** Users can define their own mapping and reducing logic based on the specific requirements of their MapReduce application.
 
 
+## Installation 
+Grab from github into your local go project
+
+``` 
+go get github.com/cakuang1/ThreadedMapreduce
+```
+
 ## Usage
 
 ### Single Threaded
 1. **Instantiate MultiThreadedMR:**
     ```go
-    mr := NewMultiThreadedMR([]string{"file1.txt", "file2.txt", "file3.txt"})
+    mr := SingleThreaded.NewSingleThreadedMR([]string{"file1.txt", "file2.txt", "file3.txt"})
     ```
 
 2. **Process Data:**
@@ -36,7 +43,10 @@ This project provides a basic implementation of a multi-threaded MapReduce frame
 ### Multithreaded
 1. **Instantiate MultiThreadedMR:**
     ```go
-    mr := NewMultiThreadedMR([]string{"file1.txt", "file2.txt", "file3.txt"})
+    numReducers := 4
+	mr := MultiThreaded.NewMultiThreadedMR(numReducers)
+	files := []string{"file1.txt", "file2.txt", "file3.txt"}
+	multiThreadedResult := mr.Process(files)
     ```
 
 2. **Process Data:**
@@ -57,19 +67,22 @@ package main
 
 import (
 	"fmt"
-	"github.com/cakuang1/MultiThreadedMapReduce"
+	"github.com/cakuang1/ThreadedMapReduce"
 )
 
 func main() {
 	// Example usage
-	mr := MultiThreadedMapReduce.NewMultiThreadedMR([]string{"file1.txt", "file2.txt", "file3.txt"})
-	mr.Process()
-	fmt.Println("Processing completed.")
+    numReducers := 4
+	mr := MultiThreaded.NewMultiThreadedMR(numReducers)
+	files := []string{"file1.txt", "file2.txt", "file3.txt"}
+	multiThreadedResult := mr.Process(files)
 }
 ```
 
 
-## Docker 
+## Docker
+
+
 
 
 # How this works

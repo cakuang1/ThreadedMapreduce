@@ -1,5 +1,4 @@
 name: Go Tests
-
 on:
   push:
     branches:
