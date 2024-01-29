@@ -1,4 +1,4 @@
-package main
+package SingleThreaded
 
 import (
 	"bufio"
@@ -7,6 +7,10 @@ import (
 	"os"
 	"strings"
 )
+
+// SINGLE THREAD APPROACH  
+
+
 
 // SingleThreadedMR represents a single-threaded MapReduce instance
 type SingleThreadedMR struct {
@@ -58,7 +62,6 @@ func mapFunction(lines []string) map[string]int {
 
 // reduceFunction performs the reduce operation on a list of key-value pairs
 func reduceFunction(input map[string]int) map[string]int {
-	// The reduce function can be a no-op for this example
 	return input
 }
 

@@ -2,7 +2,8 @@ package main
 
 import (
 	"fmt"
-	"./MultiThreaded" // Update this import path based on your project structure
+	"MapReduce/MultiThreaded"
+
 )
 
 func main() {
@@ -10,7 +11,7 @@ func main() {
 	numReducers := 4
 	mr := MultiThreaded.NewMultiThreadedMR(numReducers)
 
-	files := []string{"file1.txt", "file2.txt", "file3.txt"}
+	files := []string{"a-hell0.txt","alien3a.txt","aliens3.txt", "aliensfaq.txt"}
 	mr.Process(files)
 
 	fmt.Println("Processing completed.")

@@ -1,4 +1,4 @@
-module ThreadedMapReduce
+module MapReduce
 
 
 
