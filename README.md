@@ -95,9 +95,9 @@ Run it
 docker run threadedmapreduce
 ```
 
-
+Or Run with Mounted Files
 ```
-
+docker run -v /path/to/local/code:/go/src/app threadedmapreduce
 ```
 
 
