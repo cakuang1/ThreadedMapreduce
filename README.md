@@ -81,8 +81,22 @@ func main() {
 
 
 ## Docker
+Want to run in Docker? Build the dockerfile
+
+```
+docker build -t threadedmapreduce .
+```
+
+Run it 
+
+```
+docker run threadedmapreduce
+```
 
 
+```
+
+```
 
 
 # How this works
