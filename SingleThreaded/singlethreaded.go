@@ -90,7 +90,7 @@ func (mr *SingleThreadedMR) Process() map[string]int {
 
 func main() {
 	// Example usage
-	files := []string{"file1.txt", "file2.txt", "file3.txt"}
+	files := []string{"a-hell0.txt","alien3a.txt","aliens3.txt", "aliensfaq.txt"}
 	mr := NewSingleThreadedMR(files)
 
 	// Process all files and aggregate the results

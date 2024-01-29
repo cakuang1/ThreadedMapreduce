@@ -68,6 +68,10 @@ func main() {
 }
 ```
 
+
+## Docker 
+
+
 # How this works
 Typical multi-threaded processing framework with master-worker pattern 
 
