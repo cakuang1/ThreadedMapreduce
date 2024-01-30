@@ -1,6 +1,6 @@
 
 [![Go Tests](https://github.com/cakuang1/ThreadedMapreduce/actions/workflows/tests.yml/badge.svg)](https://github.com/cakuang1/ThreadedMapreduce/actions/workflows/tests.yml)
-# Go Multi-Threaded Single Machine MapReduce Framework
+# Go Multi-Threaded Single Machine MapReduce
 
 
 ## Overview
