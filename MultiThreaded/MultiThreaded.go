@@ -127,7 +127,6 @@ func (mr *MultiThreadedMR) Process(files []string) map[string]int {
     }
 
     // Print the final result
-    fmt.Println("Final Result:", finalResult)
 
     return finalResult
 }

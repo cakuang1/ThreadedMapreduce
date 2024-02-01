@@ -4,9 +4,12 @@ import (
 	"testing"
 	"MapReduce/MultiThreaded"
 	"MapReduce/SingleThreaded"
+	"time"
 )
 
 
+
+// 
 // Test to check if the single-threaded and multi-threaded versions produce the same outcome
 func TestMRProcessing(t *testing.T) {
 	// Single-threaded processing
@@ -39,4 +42,54 @@ func compareResults(result1, result2 map[string]int) bool {
 	}
 
 	return true
+}
+
+
+func runSingleThreadedTest(files []string, t *testing.T) time.Duration {
+	startTime := time.Now()
+	singleThreadedMR := SingleThreaded.NewSingleThreadedMR(files)
+	_ = singleThreadedMR.Process()
+	duration := time.Since(startTime)
+	t.Logf("Single-threaded processing took: %v", duration)
+	return duration
+}
+
+// Function to run a multi-threaded test
+func runMultiThreadedTest(files []string, numReducers int, t *testing.T) time.Duration {
+	startTime := time.Now()
+	mr := MultiThreaded.NewMultiThreadedMR(numReducers)
+	_ = mr.Process(files)
+	duration := time.Since(startTime)
+	t.Logf("Multi-threaded processing took: %v", duration)
+	return duration
+}
+
+// Test to check the time taken by single-threaded processing
+func TestSingleThreadedMRProcessing(t *testing.T) {
+	var totalSingleThreaded time.Duration
+	// Run the test multiple times to find the average increase
+	for i := 0; i < 5; i++ {
+		files := []string{
+			"alien3a.txt", "alien3a.txt", "alien3a.txt", "alien3a.txt"}
+		totalSingleThreaded += runSingleThreadedTest(files, t)
+	}
+
+	averageSingleThreaded := totalSingleThreaded / 5
+	t.Logf("Average time for single-threaded processing: %v", averageSingleThreaded)
+	
+}
+
+// Test to check the time taken by multi-threaded processing
+func TestMultiThreadedMRProcessing(t *testing.T) {
+	var totalMultiThreaded time.Duration
+
+	// Run the test multiple times to find the average increase
+	for i := 0; i < 5; i++ {
+		numReducers := 4
+		files := []string{"alien3a.txt", "alien3a.txt", "alien3a.txt", "alien3a.txt"}
+		totalMultiThreaded += runMultiThreadedTest(files, numReducers, t)
+	}
+
+	averageMultiThreaded := totalMultiThreaded / 5
+	t.Logf("Average time for multi-threaded processing: %v", averageMultiThreaded)
 }

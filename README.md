@@ -100,6 +100,21 @@ Or Run with Mounted Files
 docker run -v /path/to/local/code:/go/src/app threadedmapreduce
 ```
 
+## Testing
+
+#### Testing average runtimes for each approach
+
+Methodology : Running 10 iterations for each approach(SingleThreaded and MultiThreaded). Each iteration processes 54 ~6mb text files. 
+
+#### Graph 
+![Alt text](images/4.png)
+
+NOTE:Incredibly tiny sample size but the results are fairly relative.  Also tested with smaller text files but there was little to no  
+
+
+
+
+
 
 # How this works
 Typical multi-threaded processing framework with master-worker pattern 
